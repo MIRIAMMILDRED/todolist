@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do-list</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="to-do" id="todo_list">
+        <h3>My to do list</h3>
+        <input type="text" id="new_task" placeholder="add a task ">
+        <button class="button" onclick="todoTask()">+</button>
+        <ul id="tasks"></ul>
+
+    </div>
+    <script>
+    let taskCount = 0;
+
+function todoTask() {
+    const taskInput = document.getElementById('new_task');
+    const newTask = taskInput.value;
+    if (newTask) {
+        taskCount++;
+        const listItem = document.createElement('li');
+
+        const taskText = document.createElement('span');
+        taskText.className = 'task-text';
+        taskText.textContent = `Task ${taskCount}: ${newTask}`;
+        listItem.appendChild(taskText);
+
+        const tickButton = document.createElement('button');
+        tickButton.className = 'tick';
+        tickButton.innerHTML = '<i class="fas fa-check"></i>'; 
+        tickButton.onclick = function () {
+            listItem.classList.toggle('completed');
+            taskText.classList.toggle('completed');
+        };
+
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'delete';
+        deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+        deleteButton.onclick = function () {
+            listItem.remove();
+        };
+
+        listItem.appendChild(tickButton);
+        listItem.appendChild(deleteButton);
+        
+        document.getElementById('tasks').appendChild(listItem);
+        taskInput.value = '';
+    } else {
+        alert('Please enter a task!');
+    }
+}
+</script>
+      
+</body>
+</html>
